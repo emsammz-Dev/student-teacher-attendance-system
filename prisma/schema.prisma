@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ClassModel {
+  id           String         @id @default(uuid())
+  name         String
+  SectionModel SectionModel?
+  TeacherModel TeacherModel?
+  students     StudentModel[]
+
+  TimeTableModel TimeTableModel[]
+}
+
+model SectionModel {
+  id           String      @id @default(uuid())
+  name         String
+  className    ClassModel? @relation(fields: [classModelId], references: [id], onDelete: Cascade)
+  classModelId String?     @unique
+}
+
+model TeacherModel {
+  id        String @id @default(uuid())
+  firstName String
+  lastName  String
+
+  headClass       ClassModel?       @relation(fields: [classModelId], references: [id])
+  classModelId    String?           @unique
+  TeacherSubjects TeacherSubjects[]
+}
+
+model StudentModel {
+  id           String      @id @default(uuid())
+  firstName    String
+  lastName     String
+  ClassModel   ClassModel? @relation(fields: [classModelId], references: [id])
+  classModelId String?
+}
+
+model SubjectModel {
+  id              String            @id @default(uuid())
+  subjectName     String
+  subjectCode     String
+  subjectClass    String
+  TeacherSubjects TeacherSubjects[]
+}
+
+model TeacherSubjects {
+  id String @id @default(uuid())
+
+  subject        SubjectModel? @relation(fields: [subjectModelId], references: [id])
+  subjectModelId String?
+
+  subjectTeacher TeacherModel? @relation(fields: [teacherModelId], references: [id])
+  teacherModelId String?
+
+  timeTable TimeTableModel[]
+}
+
+model TimeTableModel {
+  id String @id @default(uuid())
+
+  subjectClass ClassModel? @relation(fields: [classModelId], references: [id])
+  classModelId String?
+
+  timeTableSlot   TimeTableSlot? @relation(fields: [timeTableSlotId], references: [id])
+  timeTableSlotId String?
+
+  TeacherSubjects   TeacherSubjects? @relation(fields: [teacherSubjectsId], references: [id])
+  teacherSubjectsId String?
+}
+
+model TimeTableSlot {
+  id   String @id @default(uuid())
+  day  String
+  time String
+
+  TimeTableModel TimeTableModel[]
+}

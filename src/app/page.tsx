@@ -1,103 +1,136 @@
-import Image from "next/image";
+import Link from "next/link";
+import ManageClasses from "./components/classescomponent/manage_classes/manage_classes";
+import ClassThumbnail from "./components/classescomponent/admin_dashboard_class_thumbnail";
+import TeacherThumbnail from "./components/teacherscomponent/admin_dashboard_teacher_thumbnail";
+import ManageTeachers from "./components/teacherscomponent/manage_teachers/manage_teachers";
+import StudentThumbnail from "./components/studentscomponent/admin_dashboard_student_thumbnail";
+import SubjectThumbnail from "./components/subjectscomponent/admin_dashboard_subjects_thumnail";
+import ManageSubjects from "./components/subjectscomponent/manage_subjects";
+import HolidayThumbnail from "./components/holidaycomponent/admin_dashboard_holiday_thumbnail";
+import TimeTableThumbnail from "./components/timetablecomponent/admin_dashboard_timetable_thumbnail";
+import ManageStudent from "./components/studentscomponent/manage_students";
 
-export default function Home() {
+// const cards = [
+//   {
+//     cardName: "students",
+//     cardPath: "/dashboard/students/actions",
+//     cardDashboard: "/students",
+//   },
+//   {
+//     cardName: "teachers",
+//     cardPath: "/dashboard/teachers/actions",
+//     cardDashboard: "/teachers",
+//   },
+//   {
+//     cardName: "classes",
+//     cardPath: "/dashboard/classes/actions",
+//     cardDashboard: "/classes",
+//   },
+//   {
+//     cardName: "subjects",
+//     cardPath: "/dashboard/subjects/actions",
+//     cardDashboard: "/subjects",
+//   },
+//   {
+//     cardName: "holidays",
+//     cardPath: "/dashboard/holidays",
+//     cardDashboard: "/holidays",
+//   },
+//   {
+//     cardName: "timetable",
+//     cardPath: "/dashboard/timetable",
+//     cardDashboard: "/timetable",
+//   },
+// ];
+
+async function Dashboard() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      {/* right */}
+      <div className="p-4 flex flex-col gap-2 bg-teal-950">
+        <div className="flex flex-col gap-4">
+          {/* heading */}
+          <div className="p-4 ring-1 ring-neutral-700 rounded-xl flex flex-col gap-4">
+            <div className="bg-neutral-900 flex p-4 rounded-xl shadow-md shadow-black">
+              <div className="flex-1">
+                <div className="text-2xl">Admin Dashboard</div>
+                <div className="text-md text-stone-500">
+                  Lorem ipsum dolor sit amet Lorem ipsum.
+                </div>
+              </div>
+              <div className="flex-1 content-center place-items-center">
+                <div className="flex gap-2">
+                  <input
+                    className="border-[1px] border-teal-700 rounded-xl h-8 focus:border-teal-500 focus:outline-none"
+                    type="input"
+                  ></input>
+                  <button className="border-[1px] border-teal-500 rounded-xl px-2">
+                    Search
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* dashboard */}
+          <div className="p-4 ring-1 ring-neutral-700 rounded-xl flex flex-col gap-4">
+            <div className="grid grid-cols-4 gap-4">
+              <ClassThumbnail />
+              <TeacherThumbnail />
+              <StudentThumbnail />
+              <SubjectThumbnail />
+            </div>
+            <div className="flex gap-4">
+              <HolidayThumbnail />
+              <TimeTableThumbnail />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="flex gap-4 p-4 ring-1 ring-neutral-700 rounded-xl">
+          {/* quick action */}
+          <div className="flex-1 bg-neutral-900 rounded-xl shadow-md shadow-black p-4 flex flex-col gap-4">
+            <div className="text-xl">Quick Action</div>
+            <div className="grid grid-cols-2 gap-4">
+              <ManageClasses />
+              <ManageTeachers />
+              <ManageStudent />
+              <ManageSubjects />
+            </div>
+          </div>
+          <div className="flex-1 bg-neutral-900 rounded-xl shadow-md shadow-black p-4">
+            <div className="text-xl">Recent Activity</div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default Dashboard;
+
+function Login() {
+  return (
+    <div className="h-screen relative bg-neutral-800">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] border-[1px] rounded-sm flex flex-col justify-around p-4">
+        <div className="text-center text-2xl">School Attendance System</div>
+        <div className="flex flex-col">
+          <div>Select Role</div>
+          <select className="border-[1px] h-10 rounded-sm p-2">
+            <option>Administer</option>
+            <option>Teacher</option>
+          </select>
+        </div>
+        <div className="flex flex-col">
+          <div>Select User</div>
+          <select className="border-[1px] h-10 rounded-sm p-2">
+            <option>Admin User</option>
+            <option>teacher</option>
+          </select>
+        </div>
+
+        <button className="bg-neutral-700 h-10 rounded-sm">
+          <Link href={"/dashboard"}>Submit</Link>
+        </button>
+      </div>
     </div>
   );
 }
